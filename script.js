@@ -1,7 +1,5 @@
-const container = document.querySelector('div');
-const newSketch = document.createElement('button');
-newSketch.textContent = "New Sketch";
-container.appendChild(newSketch);
+const container = document.querySelector('.container ');
+const newSketch = document.querySelector('button');
 
 // Create the grid
 let newGrid = gridSize => {
@@ -19,23 +17,43 @@ let newGrid = gridSize => {
 
 newGrid(16);
 
-document.addEventListener('mouseover', event => {
-    if (!event.target.classList.contains('column')) return;
-    event.target.style.background = "green";
+// Increase opacity
+const increaseOpacity = element => {
+    const computedStyles = window.getComputedStyle(element);
+    const opacity = Number(computedStyles.getPropertyValue('opacity'));
+    if (opacity < 1) {
+        element.style.opacity = `${opacity + 0.1}`;
+    }
+};
+
+// Change background
+const changeBackground = element => {
+    if (!element.classList.contains('column')) return;
+    const rainbow = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+    let randomColorIndex = Math.floor(Math.random() * 7);
+    element.style.backgroundColor = rainbow[randomColorIndex];
+};
+
+container.addEventListener('mouseover', event => {
+    const currentElement = event.target;
+    changeBackground(currentElement);
+    increaseOpacity(currentElement);
 });
 
 newSketch.addEventListener('click', event => {
+    // Get new grid size (equal or less than 100)
     let totalSquares;
     do {
         totalSquares = prompt("Enter the desired grid size: ");
-    } while (totalSquares === null || Number.isNaN(Number(totalSquares)) || Number(totalSquares) > 100)
+    } while (Number.isNaN(Number(totalSquares)) || Number(totalSquares) > 100)
+
+    // Early exit and keep the grid if prompt is cancelled
+    if (totalSquares === null) return;
 
     // Remove the grid
-    while (container.lastChild !== newSketch) {
-        // console.log(container.remove(container.lastChild))
+    while (container.lastChild) {
         container.removeChild(container.lastChild);
     }
-
     // Create new grid
-    newGrid(totalSquares);
+    newGrid(Number(totalSquares));
 });

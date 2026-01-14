@@ -37,21 +37,35 @@ p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
 
+.layout-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.btn {
+  width: 150px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
 .container {
-    height: 100%;
+    width: 600px;
+    height: 600px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    background-color: #f0f0f0;
 }
 
 .row {
     flex: 1;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
 }
 
 .column {
     flex: 1;
-    border: 1px dotted red;
+    opacity: 0.0;
+    /* border: 1px dotted red;  initial development*/
 }
