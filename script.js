@@ -28,7 +28,6 @@ const increaseOpacity = element => {
 
 // Change background
 const changeBackground = element => {
-    if (!element.classList.contains('column')) return;
     const rainbow = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
     let randomColorIndex = Math.floor(Math.random() * 7);
     element.style.backgroundColor = rainbow[randomColorIndex];
@@ -36,6 +35,7 @@ const changeBackground = element => {
 
 container.addEventListener('mouseover', event => {
     const currentElement = event.target;
+    if (!currentElement.classList.contains('column')) return;
     changeBackground(currentElement);
     increaseOpacity(currentElement);
 });
